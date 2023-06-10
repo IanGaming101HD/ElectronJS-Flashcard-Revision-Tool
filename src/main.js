@@ -1,10 +1,11 @@
-const fs = require('fs')
-const path = require('path')
 const {
   app,
   BrowserWindow,
   ipcMain
 } = require('electron');
+const fs = require('fs')
+const path = require('path')
+const config = require('./config.json')
 
 let createWindow = () => {
   let win = new BrowserWindow({
@@ -18,9 +19,12 @@ let createWindow = () => {
       devTools: false,
     }
   })
+  ipcMain.handle('path', () => path.join(__dirname, '\\flashcards'))
+  ipcMain.handle('config', () => config)
   ipcMain.handle('existsSync', (event, path) => fs.existsSync(path))
   ipcMain.handle('mkdirSync', (event, path) => fs.mkdirSync(path))
-  ipcMain.handle('path', () => path.join(__dirname, '\\flashcards'))
+  ipcMain.handle('writeFileSync', (event, path, data) => fs.writeFileSync(path, data))
+  ipcMain.handle('readFileSync', (event, path, options) => fs.readFileSync(path, options))
   win.loadFile('./public/main_menu/index.html')
 }
 
