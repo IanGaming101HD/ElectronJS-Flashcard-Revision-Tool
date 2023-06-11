@@ -1,15 +1,14 @@
-document.getElementById('first_input').innerText = 'hi'
-
-import cards from '../../flashcards/cards.json' assert { type: 'json' }
-
 const show_hide_answer_button = document.getElementById('show_hide_answer')
 const main_menu_button = document.getElementById('main_menu')
 const next_button = document.getElementById('next')
 
+let show = false;
 let value = 0;
-let value2 = 0;
 
-if (cards.length === 0) {
+let cards = JSON.parse(await electron.readFileSync((await electron.config).path + '\\cards.json', { encoding: 'utf8' }))
+
+if (!cards || cards.length === 0) {
+  cards = []
   first_input.innerText = ''
   second_input.innerText = 'There are no cards in this folder!\nTo add more cards select \"Main Menu\"\nand to restart the flash cards select \"Retry\".'
   second_input.style['marginBottom'] = '0px'
@@ -48,15 +47,16 @@ function session(x) {
 
 show_hide_answer_button.addEventListener('click', async (e) => {
   let second_input = document.getElementById('second_input')
-  if (value === 0) {
-    second_input.innerText = cards[value2].second_value
+
+  show = !show
+  if (show) {
+    second_input.innerText = cards[value].second_value
     show_hide_answer_button.innerText = 'Hide Answer'
-    value = 1
   } else {
     second_input.innerText = ''
     show_hide_answer_button.innerText = 'Show Answer'
-    value = 0
   }
+  show = !show
 })
 
 main_menu_button.addEventListener('click', async (e) => {
@@ -64,7 +64,7 @@ main_menu_button.addEventListener('click', async (e) => {
 })
 
 next_button.addEventListener('click', async (e) => {
-  value2 += 1
-  session(value2)
+  value += 1
+  session(value)
 })
 session(0)

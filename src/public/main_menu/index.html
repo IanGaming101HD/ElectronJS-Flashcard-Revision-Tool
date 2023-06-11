@@ -3,29 +3,25 @@
 
 <head>
   <title>Flashcard Revision Tool</title>
-  <meta charset="UTF-8" />
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-  <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'" />
-  <link rel="stylesheet" href="style.css">
+  <meta charset='UTF-8' />
+  <link rel='stylesheet' href='style.css'>
 </head>
 
 <body>
   <div class='container'>
     <h1>Menu</h1>
-    <button class="buttons" id="start_session_button">Start Session</button>
+    <button class='buttons' id='start_session_button'>Start Session</button>
     <h2>Create Card</h2>
     <form>
-      <input type="text" id="first_input" value="" required>
+      <input type='text' id='first_input' value='' required>
       <br>
-      <input type="text" id="second_input" value="" required>
+      <input type='text' id='second_input' value='' required>
       <br>
-      <input type="submit" class="buttons" id="create_button" value="Create">
+      <input type='submit' class='buttons' id='create_button' value='Create'>
     </form>
-    <p id="change_directory">Change Directory</p>
-    <!-- <label for="upload-photo">Browse...</label>
-    <input type="folder" name="photo" id="upload-photo" hidden> -->
-    <script type="module" src="./renderer.js"></script>
+    <p id='change_directory'>Change Directory</p>
   </div>
+  <script type='module' src='./script.js'></script>
 </body>
 
 </html>
