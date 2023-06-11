@@ -8,6 +8,8 @@ start_session_button.addEventListener('click', async (event) => {
 
 create_button.addEventListener('click', async (event) => {
   event.preventDefault()
+
+  let popupContainer = document.getElementById('popup_container')
   
   if (!await electron.existsSync('../../flashcards')) {
     await electron.mkdirSync('../../flashcards')
@@ -41,7 +43,9 @@ create_button.addEventListener('click', async (event) => {
   })
 
   await electron.writeFileSync(config.path + '\\cards.json', JSON.stringify(data));
-  // alert('Card has been created!')
+  
+  popupContainer.hidden = false
+  setTimeout(() => popupContainer.hidden = true, 3000)
 })
 
 change_directory.addEventListener('click', async (event) => {

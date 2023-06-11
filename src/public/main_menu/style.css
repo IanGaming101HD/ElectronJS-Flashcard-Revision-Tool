@@ -89,20 +89,17 @@ h2 {
     color: #d1d1d1;
 }
 
-/* 
-.alert {
-    background-color: white;
-    width: 600px;
-    padding: 20px 200px;
-    border-radius: 5px;
-    border: solid 3px rgb(0, 70, 150);
-    outline: none;
+.popup_container {
     position: absolute;
-    transform: translateX(50%);
-    color: black;
-    text-align: center;
-    font-size: 22px;
-} */
+    left: 27.5%;
+    bottom: 2%;
+    width: 45%;
+    padding: 1px;
+    border-radius: 15px;
+    background-color: #ffffff;
+}
 
-
-/* font-weight: 100; */
+.popup_text {
+    font-size: 17px;
+    color: #000000;
+}
