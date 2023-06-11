@@ -8,7 +8,10 @@ let value = 0;
 let cards = JSON.parse(await electron.readFileSync((await electron.config).path + '\\cards.json', { encoding: 'utf8' }))
 
 if (!cards || cards.length === 0) {
+  let first_input = document.getElementById('first_input')
+  let second_input = document.getElementById('second_input')
   cards = []
+  
   first_input.innerText = ''
   second_input.innerText = 'There are no cards in this folder!\nTo add more cards select \"Main Menu\"\nand to restart the flash cards select \"Retry\".'
   second_input.style['marginBottom'] = '0px'
