@@ -7,7 +7,20 @@ startSessionButton.addEventListener('click', async (event) => {
   location.href = '../session/index.html'
 })
 
-cardsForm.addEventListener('click', async (event) => {
+// cardsForm.addEventListener('click', async (event) => {
+//   event.preventDefault()
+// })
+
+let displayErrorMessage = (message) => {
+  let popupContainer = document.getElementById('popup-container')
+  let alertMessage = document.getElementById('alert-message')
+  popupContainer.style.visibility = 'visibile'
+  alertMessage.innerText = `Error: ${message}`
+  setTimeout(() => popupContainer.style.visibility = 'hidden' = true, 3000)
+}
+
+
+cardsForm.addEventListener('submit', (event) => {
   event.preventDefault()
 })
 
@@ -28,7 +41,7 @@ createButton.addEventListener('click', async (event) => {
   let answerInput = document.getElementById('answer-input')
 
   if (!questionInput.value || !answerInput.value) {
-    // alert('Please fill in all fields.')
+    displayErrorMessage('Please fill in all fields.')
     return;
   };
   let data;

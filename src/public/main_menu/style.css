@@ -1,11 +1,21 @@
+html {
+    font-family: Sans-Serif;
+}
+
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;  
     user-select: none;
-    font-family: Sans-Serif;
     background-color: #2d2d2d;
     color: white;
+}
+
+.centre {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
 }
 
 .menu-header {
@@ -60,6 +70,10 @@ body {
     cursor: pointer;
 }
 
+.change-directory:active {
+    color: #d1d1d1;
+}
+
 .button {
     outline: none;
     border: none;
@@ -82,27 +96,27 @@ body {
     text-align: center;
 }
 
-.change-directory:active {
-    color: #d1d1d1;
-}
-
-.popup-container {
-    position: absolute;
-    left: 27.5%;
-    bottom: 2%;
-    width: 45%;
-    padding: 1px;
-    border-radius: 15px;
-    background-color: #ffffff;
-}
-
-.popup-text {
-    font-size: 17px;
-    color: #000000;
-}
-
 .cards-form {
     display: flex;
     flex-direction: column;
     align-items: center;
+}
+
+.popup-container {
+    visibility: hidden;
+    display: flex;
+    position: fixed;
+    top: auto;
+    left: 27.5%;
+    bottom: 2%;
+    /* width: fit-content; */
+    width: 45%;
+    height: 7.5%;
+    border-radius: 15px;
+    background-color: #ebc8c4;
+}
+
+.alert-message {
+    font-size: 17px;
+    color: #9e2a2d;
 }
