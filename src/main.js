@@ -15,10 +15,10 @@ let createWindow = () => {
     autoHideMenuBar: true,
     // fullscreen: true,
     resizable: false,
-    webPreferences: {
-      preload: path.join(__dirname, 'preload.js'),
-      devTools: false,
-    }
+    // webPreferences: {
+    //   preload: path.join(__dirname, 'preload.js'),
+    //   devTools: false
+    // }
   })
   ipcMain.handle('default_path', () => path.join(__dirname, '\\flashcards'))
   ipcMain.handle('config', () => config)
@@ -29,6 +29,7 @@ let createWindow = () => {
   ipcMain.handle('writeFileSync', (event, path, data) => fs.writeFileSync(path, data))
   ipcMain.handle('readFileSync', (event, path, options) => fs.readFileSync(path, options))
   win.loadFile('./src/public/main_menu/index.html')
+  // win.loadFile('./src/public/session/index.html')
 }
 
 app.once('ready', () => {

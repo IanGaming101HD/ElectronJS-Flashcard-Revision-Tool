@@ -4,6 +4,8 @@
 <head>
   <title>Flashcard Revision Tool</title>
   <meta charset='UTF-8' />
+  <!-- <meta http-equiv='Content-Security-Policy' content='default-src 'self'; script-src 'self'' />
+  <meta http-equiv='X-Content-Security-Policy' content='default-src 'self'; script-src 'self'' /> -->
   <link rel='stylesheet' href='./style.css'>
 </head>
 
@@ -20,11 +22,10 @@
       <input type='submit' class='buttons' id='create-button' value='Create'>
     </form>
     <p id='change-directory'>Change Directory</p>
-    <div id='popup-container' class='popup-container' hidden>
-      <p class='popup-text'>Card created.</p>
-    </div>
+    <!-- <label for='upload-photo'>Browse...</label>
+    <input type='folder' name='photo' id='upload-photo' hidden> -->
+    <script type='module' src='./script.js'></script>
   </div>
-  <script type='module' src='./script.js'></script>
 </body>
 
 </html>

@@ -41,13 +41,13 @@ button:hover {
     text-align: center;
 }
 
-#show-hide-answer {
+.toggle-answer-button {
     width: 450px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
-#main-menu {
+.main-menu-button {
     margin-top: 10px;
     margin-right: 2px;
     width: 250px;
@@ -55,7 +55,7 @@ button:hover {
     padding-bottom: 10px;
 }
 
-#next {
+.next-button {
     margin-top: 10px;
     margin-left: 2px;
     width: 250px;
