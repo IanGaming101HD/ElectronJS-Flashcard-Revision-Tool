@@ -1,26 +1,36 @@
+html {
+    font-family: Sans-Serif;
+}
+
 body {
     margin: 0;
     padding: 0;
     box-sizing: border-box;  
     user-select: none;
-    font-family: Sans-Serif;
     background-color: #2d2d2d;
     color: white;
 }
 
-h1 {
+.centre {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
+
+.question {
     margin-top: 15px;
     margin-bottom: 5px;
     font-size: 60px;
 }
 
-p {
+.answer {
     margin-top: 0px;
     margin-bottom: 10px;
     font-size: 40px;
 }
 
-button {
+.button {
     outline: none;
     border: none;
     border-radius: 5px;
@@ -32,7 +42,7 @@ button {
     transition: all 0.2s ease;
 }
 
-button:hover {
+.button:hover {
     background-color: #004696;
 }
 

@@ -1,0 +1,9 @@
+Pretty much everything works except changing directory.
+
+Changing directory does save the directory in a txt file.
+Just need to read it so txt file can be created in that directory if it doesnt exist and create cards in that directory instead of default.
+And needs to automatically read flashcards from the directory in the session code.
+Also make it have a default directory in case of errors.
+
+Also maybe instead of select folder, make it select file, so user can make their own named file with json format,
+however if its not json then just create new file 'cards.json' in default directory.

@@ -2,7 +2,7 @@ const startSessionButton = document.getElementById('start-session-button')
 const createButton = document.getElementById('create-button')
 const cardsForm = document.getElementById('cards-form')
 const changeDirectory = document.getElementById('change-directory')
-const timeouts = []
+let notificationDisplayed;
 
 function displayErrorMessage(message) {
   const popupContainer = document.getElementById('popup-container')
@@ -11,11 +11,10 @@ function displayErrorMessage(message) {
   popupContainer.style.backgroundColor = '#ebc8c4'
   popupMessage.style.color = '#9e2a2d'
   popupMessage.innerText = `Error: ${message}`
-  if (timeouts.length !== 0) {
-    timeouts.map(() => timeouts.pop())
+  if (notificationDisplayed) {
+    clearTimeout(notificationDisplayed)
   }
-  let timeout = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
-  timeouts.push(timeout)
+  notificationDisplayed = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
 }
 
 function displayAlertMessage(message) {
@@ -25,11 +24,10 @@ function displayAlertMessage(message) {
   popupContainer.style.backgroundColor = '#a4ccff'
   popupMessage.style.color = '#003172'
   popupMessage.innerText = `Alert: ${message}`
-  if (timeouts.length !== 0) {
-    timeouts.map(() => timeouts.pop())
+  if (notificationDisplayed) {
+    clearTimeout(notificationDisplayed)
   }
-  let timeout = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
-  timeouts.push(timeout)
+  notificationDisplayed = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
 }
 
 startSessionButton.addEventListener('click', async (event) => {
@@ -57,7 +55,7 @@ createButton.addEventListener('click', async (event) => {
   let answerInput = document.getElementById('answer-input')
 
   if (!questionInput.value || !answerInput.value) {
-    displayErrorMessage('Please fill in all fields.')
+    displayErrorMessage('All fields are required to be provided.')
     return;
   };
   let data;
@@ -79,6 +77,7 @@ createButton.addEventListener('click', async (event) => {
 
   await electron.writeFileSync(`${config.path}\\cards.json`, JSON.stringify(data));
   displayAlertMessage('Card has been created successfully.')
+  return;
 })
 
 changeDirectory.addEventListener('click', async (event) => {

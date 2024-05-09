@@ -1,10 +1,10 @@
 const toggleButton = document.getElementById('toggle-answer-button')
 const mainMenuButton = document.getElementById('main-menu-button')
 const nextButton = document.getElementById('next-button')
-const questionField = document.getElementById('question-field')
-const answerField = document.getElementById('answer-field')
+const question = document.getElementById('question')
+const answer = document.getElementById('answer')
 
-let show = false;
+let answerHidden = true;
 let value = 0;
 
 let cards = JSON.parse(await electron.readFileSync((await electron.config).path + '\\cards.json', { encoding: 'utf8' }))
@@ -12,27 +12,20 @@ let cards = JSON.parse(await electron.readFileSync((await electron.config).path 
 if (!cards || cards.length === 0) {
   cards = []
   
-  questionField.innerText = ''
-  answerField.innerText = 'There are no cards in this folder!\nTo add more cards select \"Main Menu\".'
-  answerField.style['marginBottom'] = '0px'
-  mainMenuButton.style['marginTop'] = '0px'
-  nextButton.style['marginTop'] = '0px'
+  question.innerText = ''
+  answer.innerText = 'There are no cards in this folder!\nTo add more cards select \"Main Menu\".'
   toggleButton.remove()
-  toggleButton
 }
 
-function session(x) {
-  if (x < cards.length) {
-
-    questionField.innerText = cards[x].firstValue
-    answerField.innerText = ''
+function session(index) {
+  answerHidden = true
+  if (index < cards.length) {
+    question.innerText = cards[index].question
+    answer.innerText = ''
     toggleButton.innerText = 'Show Answer'
   } else {
-    questionField.innerText = ''
-    answerField.innerText = 'There are no more cards left!\nTo add more cards select \"Main Menu\"\nand to restart the flash cards select \"Retry\".'
-    answerField.style['marginBottom'] = '0px'
-    mainMenuButton.style['marginTop'] = '-10px'
-    nextButton.style['marginTop'] = '-10px'
+    question.innerText = ''
+    answer.innerText = 'There are no more cards left!\nTo add more cards select \"Main Menu\"\nand to restart the flash cards select \"Retry\".'
     toggleButton.remove()
     nextButton.innerText = 'Retry'
     nextButton.removeEventListener('click', async (event) => {})
@@ -43,16 +36,16 @@ function session(x) {
 }
 
 toggleButton.addEventListener('click', async (event) => {
-  let answerField = document.getElementById('second-field')
+  let answer = document.getElementById('answer')
 
-  if (show) {
-    answerField.innerText = cards[value].secondValue
+  if (answerHidden) {
+    answer.innerText = cards[value].answer
     toggleButton.innerText = 'Hide Answer'
-    show = false
+    answerHidden = false
   } else {
-    answerField.innerText = ''
+    answer.innerText = ''
     toggleButton.innerText = 'Show Answer'
-    show = true
+    answerHidden = true
   }
 })
 
