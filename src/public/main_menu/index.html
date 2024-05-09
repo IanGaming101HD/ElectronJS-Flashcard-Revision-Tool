@@ -4,24 +4,24 @@
 <head>
   <title>Flashcard Revision Tool</title>
   <meta charset='UTF-8' />
-  <link rel='stylesheet' href='style.css'>
+  <link rel='stylesheet' href='./style.css'>
 </head>
 
 <body>
   <div class='container'>
     <h1>Menu</h1>
-    <button class='buttons' id='start_session_button'>Start Session</button>
+    <button class='buttons' id='start-session-button'>Start Session</button>
     <h2>Create Card</h2>
     <form>
-      <input type='text' id='first_input' value='' required>
+      <input type='text' id='first-input' value='' required>
       <br>
-      <input type='text' id='second_input' value='' required>
+      <input type='text' id='second-input' value='' required>
       <br>
-      <input type='submit' class='buttons' id='create_button' value='Create'>
+      <input type='submit' class='buttons' id='create-button' value='Create'>
     </form>
-    <p id='change_directory'>Change Directory</p>
-    <div id='popup_container' class='popup_container' hidden>
-      <p class='popup_text'>Card created.</p>
+    <p id='change-directory'>Change Directory</p>
+    <div id='popup-container' class='popup-container' hidden>
+      <p class='popup-text'>Card created.</p>
     </div>
   </div>
   <script type='module' src='./script.js'></script>

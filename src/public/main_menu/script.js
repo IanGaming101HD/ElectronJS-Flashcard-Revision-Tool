@@ -1,15 +1,15 @@
-const start_session_button = document.getElementById('start_session_button')
-const create_button = document.getElementById('create_button')
-const change_directory = document.getElementById('change_directory')
+const startSessionButton = document.getElementById('start-session-button')
+const createButton = document.getElementById('create-button')
+const changeDirectory = document.getElementById('change-directory')
 
-start_session_button.addEventListener('click', async (event) => {
+startSessionButton.addEventListener('click', async (event) => {
   location.href = '../session/index.html'
 })
 
-create_button.addEventListener('click', async (event) => {
+createButton.addEventListener('click', async (event) => {
   event.preventDefault()
 
-  let popupContainer = document.getElementById('popup_container')
+  let popupContainer = document.getElementById('popup-container')
   
   if (!await electron.existsSync('../../flashcards')) {
     await electron.mkdirSync('../../flashcards')
@@ -21,8 +21,8 @@ create_button.addEventListener('click', async (event) => {
     await electron.writeFileSync('./src/config.json', JSON.stringify(config));
   }
 
-  let firstInput = document.getElementById('first_input').value
-  let secondInput = document.getElementById('second_input').value
+  let firstInput = document.getElementById('first-input').value
+  let secondInput = document.getElementById('second-input').value
 
   if (!firstInput || !secondInput) return
   let data;
@@ -38,8 +38,8 @@ create_button.addEventListener('click', async (event) => {
   }
 
   data.push({
-    first_value: firstInput,
-    second_value: secondInput
+    'first-value': firstInput,
+    'second-value': secondInput
   })
 
   await electron.writeFileSync(config.path + '\\cards.json', JSON.stringify(data));
@@ -48,7 +48,7 @@ create_button.addEventListener('click', async (event) => {
   setTimeout(() => popupContainer.hidden = true, 3000)
 })
 
-change_directory.addEventListener('click', async (event) => {
+changeDirectory.addEventListener('click', async (event) => {
   event.preventDefault()
 
   await electron.showOpenDialog({

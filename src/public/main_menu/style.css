@@ -46,20 +46,20 @@ h2 {
     text-align: center;
 }
 
-#start_session_button {
+#start-session-button {
     padding: 150px;
     padding-top: 10px;
     padding-bottom: 10px;
 }
 
-#create_button {
+#create-button {
     padding: 75px;
     padding-top: 5px;
     padding-bottom: 5px;
     margin-bottom: -5px;
 }
 
-#first_input {
+#first-input {
     font-size: 20px;
     height: 30px;
     width: 460px;
@@ -69,7 +69,7 @@ h2 {
     border-width: 0px;
 }
 
-#second_input {
+#second-input {
     font-size: 20px;
     padding-bottom: 100px;
     padding-left: 5px;
@@ -79,17 +79,17 @@ h2 {
     border-width: 0px;
 }
 
-#change_directory {
+#change-directory {
     color: #ffffff;
     font-size: 15px;
     cursor: pointer;
 }
 
-#change_directory:active {
+#change-directory:active {
     color: #d1d1d1;
 }
 
-.popup_container {
+.popup-container {
     position: absolute;
     left: 27.5%;
     bottom: 2%;
@@ -99,7 +99,7 @@ h2 {
     background-color: #ffffff;
 }
 
-.popup_text {
+.popup-text {
     font-size: 17px;
     color: #000000;
 }
