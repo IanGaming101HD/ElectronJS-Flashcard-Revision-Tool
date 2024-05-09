@@ -11,11 +11,11 @@ function displayErrorMessage(message) {
   popupContainer.style.backgroundColor = '#ebc8c4'
   popupMessage.style.color = '#9e2a2d'
   popupMessage.innerText = `Error: ${message}`
-  // if (timeouts.length !== 0) {
-  //   timeouts.map((value) => timeouts.pop())
-  // }
-  // let timeout = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
-  // timeouts.push(timeout)
+  if (timeouts.length !== 0) {
+    timeouts.map(() => timeouts.pop())
+  }
+  let timeout = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
+  timeouts.push(timeout)
 }
 
 function displayAlertMessage(message) {
@@ -25,12 +25,11 @@ function displayAlertMessage(message) {
   popupContainer.style.backgroundColor = '#a4ccff'
   popupMessage.style.color = '#003172'
   popupMessage.innerText = `Alert: ${message}`
-  // if (timeouts.length !== 0) {
-  //   timeouts.map((value) => timeouts.pop())
-  // }
-  // let timeout = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
-  // timeouts.push(timeout)
-  console.log(2, popupContainer, popupMessage)
+  if (timeouts.length !== 0) {
+    timeouts.map(() => timeouts.pop())
+  }
+  let timeout = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
+  timeouts.push(timeout)
 }
 
 startSessionButton.addEventListener('click', async (event) => {
@@ -58,7 +57,6 @@ createButton.addEventListener('click', async (event) => {
   let answerInput = document.getElementById('answer-input')
 
   if (!questionInput.value || !answerInput.value) {
-    console.log('a')
     displayErrorMessage('Please fill in all fields.')
     return;
   };
@@ -80,9 +78,7 @@ createButton.addEventListener('click', async (event) => {
   })
 
   await electron.writeFileSync(`${config.path}\\cards.json`, JSON.stringify(data));
-  console.log('b')
   displayAlertMessage('Card has been created successfully.')
-  console.log('c')
 })
 
 changeDirectory.addEventListener('click', async (event) => {
