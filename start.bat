@@ -1,1 +1,1 @@
-electron ./src/main.js
+electron .
