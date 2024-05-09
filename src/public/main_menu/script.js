@@ -3,14 +3,6 @@ const createButton = document.getElementById('create-button')
 const cardsForm = document.getElementById('cards-form')
 const changeDirectory = document.getElementById('change-directory')
 
-startSessionButton.addEventListener('click', async (event) => {
-  location.href = '../session/index.html'
-})
-
-// cardsForm.addEventListener('click', async (event) => {
-//   event.preventDefault()
-// })
-
 let displayErrorMessage = (message) => {
   let popupContainer = document.getElementById('popup-container')
   let alertMessage = document.getElementById('alert-message')
@@ -19,10 +11,13 @@ let displayErrorMessage = (message) => {
   setTimeout(() => popupContainer.style.visibility = 'hidden' = true, 3000)
 }
 
-
-cardsForm.addEventListener('submit', (event) => {
-  event.preventDefault()
+startSessionButton.addEventListener('click', async (event) => {
+  location.href = '../session/index.html'
 })
+
+// cardsForm.addEventListener('submit', async (event) => {
+//   event.preventDefault()
+// })
 
 createButton.addEventListener('click', async (event) => {
   event.preventDefault()
