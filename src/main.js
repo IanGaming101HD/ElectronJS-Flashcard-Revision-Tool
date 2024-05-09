@@ -15,10 +15,10 @@ let createWindow = () => {
     autoHideMenuBar: true,
     // fullscreen: true,
     resizable: false,
-    // webPreferences: {
-    //   preload: path.join(__dirname, 'preload.js'),
-    //   devTools: false
-    // }
+    webPreferences: {
+      preload: path.join(__dirname, 'preload.js'),
+      devTools: false
+    }
   })
   ipcMain.handle('default_path', () => path.join(__dirname, '\\flashcards'))
   ipcMain.handle('config', () => config)
