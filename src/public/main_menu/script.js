@@ -2,22 +2,44 @@ const startSessionButton = document.getElementById('start-session-button')
 const createButton = document.getElementById('create-button')
 const cardsForm = document.getElementById('cards-form')
 const changeDirectory = document.getElementById('change-directory')
+const timeouts = []
 
-let displayErrorMessage = (message) => {
-  let popupContainer = document.getElementById('popup-container')
-  let alertMessage = document.getElementById('alert-message')
-  popupContainer.style.visibility = 'visibile'
-  alertMessage.innerText = `Error: ${message}`
-  setTimeout(() => popupContainer.style.visibility = 'hidden' = true, 3000)
+function displayErrorMessage(message) {
+  const popupContainer = document.getElementById('popup-container')
+  const popupMessage = document.getElementById('popup-message')
+  popupContainer.style.visibility = 'visible'
+  popupContainer.style.backgroundColor = '#ebc8c4'
+  popupMessage.style.color = '#9e2a2d'
+  popupMessage.innerText = `Error: ${message}`
+  // if (timeouts.length !== 0) {
+  //   timeouts.map((value) => timeouts.pop())
+  // }
+  // let timeout = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
+  // timeouts.push(timeout)
+}
+
+function displayAlertMessage(message) {
+  const popupContainer = document.getElementById('popup-container')
+  const popupMessage = document.getElementById('popup-message')
+  popupContainer.style.visibility = 'visible'
+  popupContainer.style.backgroundColor = '#a4ccff'
+  popupMessage.style.color = '#003172'
+  popupMessage.innerText = `Alert: ${message}`
+  // if (timeouts.length !== 0) {
+  //   timeouts.map((value) => timeouts.pop())
+  // }
+  // let timeout = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
+  // timeouts.push(timeout)
+  console.log(2, popupContainer, popupMessage)
 }
 
 startSessionButton.addEventListener('click', async (event) => {
   location.href = '../session/index.html'
 })
 
-// cardsForm.addEventListener('submit', async (event) => {
-//   event.preventDefault()
-// })
+cardsForm.addEventListener('submit', (event) => {
+  event.preventDefault()
+})
 
 createButton.addEventListener('click', async (event) => {
   event.preventDefault()
@@ -36,6 +58,7 @@ createButton.addEventListener('click', async (event) => {
   let answerInput = document.getElementById('answer-input')
 
   if (!questionInput.value || !answerInput.value) {
+    console.log('a')
     displayErrorMessage('Please fill in all fields.')
     return;
   };
@@ -57,10 +80,9 @@ createButton.addEventListener('click', async (event) => {
   })
 
   await electron.writeFileSync(`${config.path}\\cards.json`, JSON.stringify(data));
-  
-  // let popupContainer = document.getElementById('popup-container')
-  // popupContainer.hidden = false
-  // setTimeout(() => popupContainer.hidden = true, 3000)
+  console.log('b')
+  displayAlertMessage('Card has been created successfully.')
+  console.log('c')
 })
 
 changeDirectory.addEventListener('click', async (event) => {

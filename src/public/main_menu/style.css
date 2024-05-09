@@ -113,10 +113,8 @@ body {
     width: 45%;
     height: 7.5%;
     border-radius: 15px;
-    background-color: #ebc8c4;
 }
 
-.alert-message {
+.popup-message {
     font-size: 17px;
-    color: #9e2a2d;
 }
