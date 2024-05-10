@@ -19,23 +19,23 @@ Before running the Flashcard Revision Tool, ensure you have the following instal
 Follow these steps to get your Flashcard Revision Tool application up and running:
 
 1. **Clone the repository:**
-   ```bash
-   git clone https://github.com/iangaming101hd/flashcard-revision-tool.git
-   cd flashcard-revision-tool
-   ```
+```bash
+git clone https://github.com/iangaming101hd/flashcard-revision-tool.git
+cd flashcard-revision-tool
+```
 2. **Install dependencies:**
-    Use npm to install all required packages:
-    ```bash
-    npm install
-    ```
+Use npm to install all required packages:
+```bash
+npm install
+```
 
 ## Usage
 
 To launch the Flashcard Revision Tool and start the Electron application, execute the following command from the root directory of your project:
 
-   ```bash
-   electron .
-   ```
+```bash
+electron .
+```
 
 After executing this command, an Electron window should appear with the application.
 
