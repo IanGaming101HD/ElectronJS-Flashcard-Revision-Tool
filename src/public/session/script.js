@@ -14,10 +14,10 @@ if (!cards) {
   cards = []
   question.innerText = ''
   answer.innerText = 'There are no cards in this folder!\nTo add more cards select \"Main Menu\".'
-  toggleButton.style.visibility = 'hidden'
-  previousButton.style.visibility = 'hidden'
-  nextButton.style.visibility = 'hidden'
-  retryButton.style.visibility = 'hidden'
+  toggleButton.style.display = 'none'
+  previousButton.style.display = 'none'
+  nextButton.style.display = 'none'
+  retryButton.style.display = 'none'
 }
 
 function session(index) {
@@ -25,23 +25,23 @@ function session(index) {
 
   if (index < cards.length) {
     if (index === 0) {
-      previousButton.style.visibility = 'hidden'
+      previousButton.style.display = 'none'
     } else {
-      previousButton.style.visibility = 'visible'
+      previousButton.style.display = 'inline'
     }
     question.innerText = cards[index].question
     answer.innerText = ''
     toggleButton.innerText = 'Show Answer'
-    toggleButton.style.visibility = 'visible'
-    nextButton.style.visibility = 'visible'
-    retryButton.style.visibility = 'hidden'
+    toggleButton.style.display = 'inline'
+    nextButton.style.display = 'inline'
+    retryButton.style.display = 'none'
   } else {
     question.innerText = ''
     answer.innerText = 'There are no more cards left!\nTo add more cards select \"Main Menu\"\nand to restart the flash cards select \"Retry\".'
-    toggleButton.style.visibility = 'hidden'
-    previousButton.style.visibility = 'visible'
-    nextButton.style.visibility = 'hidden'
-    retryButton.style.visibility = 'visible'
+    toggleButton.style.display = 'none'
+    previousButton.style.display = 'inline'
+    nextButton.style.display = 'none'
+    retryButton.style.display = 'inline'
   }
 }
 
