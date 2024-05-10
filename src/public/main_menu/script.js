@@ -1,34 +1,51 @@
+class Notifications {
+  constructor() {
+    this.notification;
+  }
+
+  displayErrorBox(message) {
+    popupContainer.style.visibility = 'visible'
+    popupContainer.style.backgroundColor = '#ebc8c4'
+    popupMessage.style.color = '#9e2a2d'
+    popupMessage.innerText = `Error: ${message}`
+    if (this.notification) {
+      clearTimeout(this.notification)
+    }
+    this.notification = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
+  }
+
+  displayAlertBox(message) {
+    popupContainer.style.visibility = 'visible'
+    popupContainer.style.backgroundColor = '#a4ccff'
+    popupMessage.style.color = '#003172'
+    popupMessage.innerText = `Alert: ${message}`
+    if (this.notification) {
+      clearTimeout(this.notification)
+    }
+    this.notification = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
+  }
+}
+
+async function getConfig() {
+  let configDirectory = './src/config.json'
+  let config = await electron.readFileSync(configDirectory, { encoding: 'utf8' }) ? JSON.parse(await electron.readFileSync(configDirectory, { encoding: 'utf8' })) : {};
+  if (!config.path) {
+    config.path = await electron.default_path
+    if (!await electron.existsSync('../../flashcards')) {
+      await electron.mkdirSync('../../flashcards')
+    }
+    await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
+  }
+  return config
+}
+
 const startSessionButton = document.getElementById('start-session-button')
 const createButton = document.getElementById('create-button')
 const cardsForm = document.getElementById('cards-form')
 const changeDirectory = document.getElementById('change-directory')
-let notificationDisplayed;
-
-function displayErrorMessage(message) {
-  const popupContainer = document.getElementById('popup-container')
-  const popupMessage = document.getElementById('popup-message')
-  popupContainer.style.visibility = 'visible'
-  popupContainer.style.backgroundColor = '#ebc8c4'
-  popupMessage.style.color = '#9e2a2d'
-  popupMessage.innerText = `Error: ${message}`
-  if (notificationDisplayed) {
-    clearTimeout(notificationDisplayed)
-  }
-  notificationDisplayed = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
-}
-
-function displayAlertMessage(message) {
-  const popupContainer = document.getElementById('popup-container')
-  const popupMessage = document.getElementById('popup-message')
-  popupContainer.style.visibility = 'visible'
-  popupContainer.style.backgroundColor = '#a4ccff'
-  popupMessage.style.color = '#003172'
-  popupMessage.innerText = `Alert: ${message}`
-  if (notificationDisplayed) {
-    clearTimeout(notificationDisplayed)
-  }
-  notificationDisplayed = setTimeout(() => popupContainer.style.visibility = 'hidden', 3000)
-}
+const popupContainer = document.getElementById('popup-container')
+const popupMessage = document.getElementById('popup-message')
+const notifications = new Notifications()
 
 startSessionButton.addEventListener('click', async (event) => {
   location.href = '../session/index.html'
@@ -40,34 +57,26 @@ cardsForm.addEventListener('submit', (event) => {
 
 createButton.addEventListener('click', async (event) => {
   event.preventDefault()
-  
-  if (!await electron.existsSync('../../flashcards')) {
-    await electron.mkdirSync('../../flashcards')
-  }
-
-  let config = await electron.config
-  if (!config.path) {
-    config.path = await electron.default_path
-    await electron.writeFileSync('./src/config.json', JSON.stringify(config));
-  }
 
   let questionInput = document.getElementById('question-input')
   let answerInput = document.getElementById('answer-input')
 
   if (!questionInput.value || !answerInput.value) {
-    displayErrorMessage('All fields are required to be provided.')
+    notifications.displayErrorBox('All fields are required to be provided.')
     return;
   };
+
+  let config = await getConfig();
   let data;
   try {
-    data = JSON.parse(await electron.readFileSync(`${config.path}\\cards.json`, {
+    data = JSON.parse(await electron.readFileSync(config.path, {
       encoding: 'utf8'
     }))
   } catch (error) {}
 
   if (!data) {
     data = []
-    await electron.writeFileSync(`${config.path}\\cards.json`, JSON.stringify(data));
+    await electron.writeFileSync(config.path, JSON.stringify(data, null, 4));
   }
 
   data.push({
@@ -75,8 +84,8 @@ createButton.addEventListener('click', async (event) => {
     answer: answerInput.value
   })
 
-  await electron.writeFileSync(`${config.path}\\cards.json`, JSON.stringify(data));
-  displayAlertMessage('Card has been created successfully.')
+  await electron.writeFileSync(config.path, JSON.stringify(data, null, 4));
+  notifications.displayAlertBox('Card has been created successfully.')
   return;
 })
 
@@ -91,13 +100,8 @@ changeDirectory.addEventListener('click', async (event) => {
   }).then(async ({ filePaths }) => {
     if (filePaths.length === 0) return;
 
-    let configPath = './src/config.json';
-    let data = JSON.parse(await electron.readFileSync(configPath, { encoding: 'utf8' }));
-    data.path = filePaths[0];
-    console.log(filePaths[0])
-
-    await electron.writeFileSync(configPath, JSON.stringify(data, null, 4));
-  }).catch((error) => {
-    console.log(error)
-  });
+    let config = await getConfig();
+    console.log('test', config)
+    await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
+  }).catch((error) => {});
 })

@@ -5,7 +5,6 @@ const {
 
 contextBridge.exposeInMainWorld('electron', {
   default_path: ipcRenderer.invoke('default_path'),
-  config: ipcRenderer.invoke('config'),
   resolve: (...paths) => ipcRenderer.invoke('resolve', ...paths),
   showOpenDialog: (options) => ipcRenderer.invoke('showOpenDialog', options),
   existsSync: (path) => ipcRenderer.invoke('existsSync', path),

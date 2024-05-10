@@ -6,7 +6,6 @@ const {
 } = require('electron');
 const fs = require('fs')
 const path = require('path')
-const config = require('./config.json')
 
 let createWindow = () => {
   let win = new BrowserWindow({
@@ -20,8 +19,7 @@ let createWindow = () => {
       devTools: false
     }
   })
-  ipcMain.handle('default_path', () => path.join(__dirname, '\\flashcards'))
-  ipcMain.handle('config', () => config)
+  ipcMain.handle('default_path', () => path.join(__dirname, '\\flashcards\\cards.json'))
   ipcMain.handle('resolve', (event, ...paths) => path.resolve(...paths))
   ipcMain.handle('showOpenDialog', (event, options) => dialog.showOpenDialog(options))
   ipcMain.handle('existsSync', (event, path) => fs.existsSync(path))
