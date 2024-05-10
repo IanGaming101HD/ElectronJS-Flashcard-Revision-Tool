@@ -84,16 +84,19 @@ changeDirectory.addEventListener('click', async (event) => {
   event.preventDefault()
 
   await electron.showOpenDialog({
-    properties: ['openDirectory']
-  }).then(async (result) => {
-    let data = JSON.parse(await electron.readFileSync('./src/config.json', {
-      encoding: 'utf8'
-    }))
-    let folderPath = result.filePaths[0];
+    properties: ['openFile'],
+    filters: [
+        { name: 'JSON Files', extensions: ['json'] }
+    ]
+  }).then(async ({ filePaths }) => {
+    if (filePaths.length === 0) return;
 
-    data.path = folderPath
+    let configPath = './src/config.json';
+    let data = JSON.parse(await electron.readFileSync(configPath, { encoding: 'utf8' }));
+    data.path = filePaths[0];
+    console.log(filePaths[0])
 
-    await electron.writeFileSync('./src/config.json', JSON.stringify(data));
+    await electron.writeFileSync(configPath, JSON.stringify(data, null, 4));
   }).catch((error) => {
     console.log(error)
   });
