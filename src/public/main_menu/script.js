@@ -26,19 +26,6 @@ class Notifications {
   }
 }
 
-async function getConfig() {
-  let configDirectory = './src/config.json'
-  let config = await electron.readFileSync(configDirectory, { encoding: 'utf8' }) ? JSON.parse(await electron.readFileSync(configDirectory, { encoding: 'utf8' })) : {};
-  if (!config.path) {
-    config.path = await electron.default_path
-    if (!await electron.existsSync('../../flashcards')) {
-      await electron.mkdirSync('../../flashcards')
-    }
-    await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
-  }
-  return config
-}
-
 const startSessionButton = document.getElementById('start-session-button')
 const createButton = document.getElementById('create-button')
 const cardsForm = document.getElementById('cards-form')
@@ -66,7 +53,16 @@ createButton.addEventListener('click', async (event) => {
     return;
   };
 
-  let config = await getConfig();
+  let configDirectory = './src/config.json'
+  let config = await electron.readFileSync(configDirectory, { encoding: 'utf8' }) ? JSON.parse(await electron.readFileSync(configDirectory, { encoding: 'utf8' })) : {};
+  if (!config.path) {
+    config.path = await electron.default_path
+    if (!await electron.existsSync('../../flashcards')) {
+      await electron.mkdirSync('../../flashcards')
+    }
+    await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
+  }
+  
   let data;
   try {
     data = JSON.parse(await electron.readFileSync(config.path, {
@@ -100,8 +96,14 @@ changeDirectory.addEventListener('click', async (event) => {
   }).then(async ({ filePaths }) => {
     if (filePaths.length === 0) return;
 
-    let config = await getConfig();
-    console.log('test', config)
+    let configDirectory = './src/config.json'
+    let config = await electron.readFileSync(configDirectory, { encoding: 'utf8' }) ? JSON.parse(await electron.readFileSync(configDirectory, { encoding: 'utf8' })) : {};
+    if (!config.path) {
+      config.path = await electron.default_path
+      await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
+    }
+    config.path = filePaths[0];
+
     await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
   }).catch((error) => {});
 })
