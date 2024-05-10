@@ -26,6 +26,15 @@ class Notifications {
   }
 }
 
+async function getConfig() {
+  let configDirectory = './src/config.json'
+  let config = await electron.readFileSync(configDirectory, { encoding: 'utf8' }) ? JSON.parse(await electron.readFileSync(configDirectory, { encoding: 'utf8' })) : {};
+  if (!config.path) {
+    config.path = await electron.default_path
+    await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
+  }
+}
+
 const startSessionButton = document.getElementById('start-session-button')
 const createButton = document.getElementById('create-button')
 const cardsForm = document.getElementById('cards-form')
@@ -96,12 +105,7 @@ changeDirectory.addEventListener('click', async (event) => {
   }).then(async ({ filePaths }) => {
     if (filePaths.length === 0) return;
 
-    let configDirectory = './src/config.json'
-    let config = await electron.readFileSync(configDirectory, { encoding: 'utf8' }) ? JSON.parse(await electron.readFileSync(configDirectory, { encoding: 'utf8' })) : {};
-    if (!config.path) {
-      config.path = await electron.default_path
-      await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
-    }
+    let config = await getConfig();
     config.path = filePaths[0];
 
     await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
