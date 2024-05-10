@@ -9,7 +9,14 @@ const answer = document.getElementById('answer')
 let answerHidden = true;
 let value = 0;
 
-let cards = JSON.parse(await electron.readFileSync((await electron.config).path + '\\cards.json', { encoding: 'utf8' }))
+let configDirectory = './src/config.json'
+let config = await electron.readFileSync(configDirectory, { encoding: 'utf8' }) ? JSON.parse(await electron.readFileSync(configDirectory, { encoding: 'utf8' })) : {};
+if (!config.path) {
+  config.path = await electron.default_path
+  await electron.writeFileSync(configDirectory, JSON.stringify(config, null, 4));
+}
+
+let cards = await electron.readFileSync(config.path, { encoding: 'utf8' }) ? JSON.parse(await electron.readFileSync(config.path, { encoding: 'utf8' })) : {};
 if (!cards) {
   cards = []
   question.innerText = ''
