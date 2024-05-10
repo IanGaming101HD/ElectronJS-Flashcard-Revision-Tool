@@ -1,6 +1,8 @@
 const toggleButton = document.getElementById('toggle-answer-button')
 const mainMenuButton = document.getElementById('main-menu-button')
+const previousButton = document.getElementById('previous-button')
 const nextButton = document.getElementById('next-button')
+const retryButton = document.getElementById('retry-button')
 const question = document.getElementById('question')
 const answer = document.getElementById('answer')
 
@@ -8,30 +10,38 @@ let answerHidden = true;
 let value = 0;
 
 let cards = JSON.parse(await electron.readFileSync((await electron.config).path + '\\cards.json', { encoding: 'utf8' }))
-
-if (!cards || cards.length === 0) {
+if (!cards) {
   cards = []
-  
   question.innerText = ''
   answer.innerText = 'There are no cards in this folder!\nTo add more cards select \"Main Menu\".'
-  toggleButton.remove()
+  toggleButton.style.visibility = 'hidden'
+  previousButton.style.visibility = 'hidden'
+  nextButton.style.visibility = 'hidden'
+  retryButton.style.visibility = 'hidden'
 }
 
 function session(index) {
   answerHidden = true
+
   if (index < cards.length) {
+    if (index === 0) {
+      previousButton.style.visibility = 'hidden'
+    } else {
+      previousButton.style.visibility = 'visible'
+    }
     question.innerText = cards[index].question
     answer.innerText = ''
     toggleButton.innerText = 'Show Answer'
+    toggleButton.style.visibility = 'visible'
+    nextButton.style.visibility = 'visible'
+    retryButton.style.visibility = 'hidden'
   } else {
     question.innerText = ''
     answer.innerText = 'There are no more cards left!\nTo add more cards select \"Main Menu\"\nand to restart the flash cards select \"Retry\".'
-    toggleButton.remove()
-    nextButton.innerText = 'Retry'
-    nextButton.removeEventListener('click', async (event) => {})
-    nextButton.addEventListener('click', async (event) => {
-      window.location.reload()
-    })
+    toggleButton.style.visibility = 'hidden'
+    previousButton.style.visibility = 'visible'
+    nextButton.style.visibility = 'hidden'
+    retryButton.style.visibility = 'visible'
   }
 }
 
@@ -47,14 +57,24 @@ toggleButton.addEventListener('click', async (event) => {
     toggleButton.innerText = 'Show Answer'
     answerHidden = true
   }
-})
+});
 
 mainMenuButton.addEventListener('click', async (event) => {
   location.href = '../main_menu/index.html'
-})
+});
+
+previousButton.addEventListener('click', async (event) => {
+  value -= 1
+  session(value)
+});
 
 nextButton.addEventListener('click', async (event) => {
   value += 1
   session(value)
-})
-session(0)
+});
+
+retryButton.addEventListener('click', async (event) => {
+  window.location.reload()
+});
+
+session(0);

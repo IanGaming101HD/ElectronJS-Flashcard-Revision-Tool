@@ -52,6 +52,7 @@ body {
 }
 
 .toggle-answer-button {
+    visibility: hidden;
     width: 450px;
     padding-top: 10px;
     padding-bottom: 10px;
@@ -65,7 +66,26 @@ body {
     padding-bottom: 10px;
 }
 
+.previous-button {
+    visibility: hidden;
+    margin-top: 10px;
+    margin-left: 2px;
+    width: 250px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
 .next-button {
+    visibility: hidden;
+    margin-top: 10px;
+    margin-left: 2px;
+    width: 250px;
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.retry-button {
+    visibility: hidden;
     margin-top: 10px;
     margin-left: 2px;
     width: 250px;
