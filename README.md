@@ -20,7 +20,7 @@ Follow these steps to get your Flashcard Revision Tool application up and runnin
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/iangaming101hd/chess.git
+   git clone https://github.com/iangaming101hd/flashcard-revision-tool.git
    cd flashcard-revision-tool
    ```
 2. **Install dependencies:**
